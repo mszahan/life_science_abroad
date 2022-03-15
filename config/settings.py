@@ -11,9 +11,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
 
 # Quick-start development settings - unsuitable for production
@@ -31,12 +32,21 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    #3rd party admin
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 3rd party
+    'ckeditor',
+    'ckeditor_uploader',
+    'django_countries',
+
+    #local
+    'study_abroad',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +64,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATE_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,7 +86,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -118,8 +128,32 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS=[STATIC_DIR,]
+STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+#ckeditor setup
+CKEDITOR_UPLOAD_PATH = "ck_uploads/"
+CKEDITOR_IMAGE_BACKEND = 'pillow'
+
+
+
+GRAPPELLI_ADMIN_TITLE = 'Study Abroad'
+
+#number of item to show with atocomplete drop-down
+GRAPPELLI_AUTOCOMPLETE_LIMIT = 3
+
+#this let switch user
+GRAPPELLI_SWITCH_USER = True
+
+# GRAPPELLI_SWITCH_USER_ORIGINAL = True
