@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import University,Program, Proffessor, Scholarship
+from .models import University,Program, Proffessor, Scholarship, Country
+
+
 
 
 @admin.register(Proffessor)
@@ -14,7 +16,7 @@ class ProffessorInline(admin.StackedInline):
 
 @admin.register(Scholarship)
 class ScholarshipAdmin(admin.ModelAdmin):
-    list_display = ['name', 'link']
+    list_display = ['name', 'link', 'deadline']
     search_fields = ['name']
 
     
@@ -36,7 +38,15 @@ class ProgramInline(admin.StackedInline):
 
 @admin.register(University)
 class UniveristyAdmin(admin.ModelAdmin):
-    list_display = ['name', 'country','location', 'ranking', 'website']
-    search_fields = ['name', 'country']
-    list_filter = ['country', 'ranking']
+    list_display = ['name','location', 'ranking', 'website']
+    search_fields = ['name',]
+    list_filter = [ 'ranking']
     inlines = [ScholarshipInline, ProgramInline]
+
+class UniversityIline(admin.StackedInline):
+    model = University
+    extra = 0
+
+@admin.register(Country)
+class CountryAdmin(admin.ModelAdmin):
+    inlines = [UniversityIline,]

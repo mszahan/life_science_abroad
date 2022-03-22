@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    {{program.subject}} - {{program.university.name}}
+{% endblock title %}
+
+
+
+{% block main %}
+    {% include 'nav.html' %}
+
+    <div class="alert alert-dark m-5 text-center" role="alert">
+       <h1 class="text-center"> {{program.subject}} - {{program.university.name}} </h1>
+       <hr>
+       <p>
+           <span class="me-5"><strong>Deadline: </strong>{{program.Deadline|date:"d F Y"}}</span>
+           <span class="me-5"><strong>Extended eadline: </strong>{{program.extended_deadline|date:"d F Y"}}</span>
+           <span class="ms-5"><strong>Program type: </strong>{{program.program_type}}</span>
+       </p>
+      </div>
+      <div class="mt-5">
+          <h1>Info</h1>
+          <hr>
+          {{program.info|safe}}
+      </div>
+
+      <div class="mt-5">
+          <h1>Proffessors</h1>
+          <hr>
+ 
+        <div class="row">
+
+            
+            {% for proff in program.proffs.all %}
+
+                
+            <div class="col-md-4 mb-5">
+                <div class="card proff">
+                    
+                    {% if proff.image %}   
+                    <img src="{{proff.image.url}}" class="card-img-top" alt="...">
+                    {% endif %}
+                        
+                  <div class="card-body">
+                    <h5 class="card-title">{{proff.name}}</h5>
+                    <p class="card-text"> {{proff.affiliation|linebreaks}} </p>
+                  </div>
+
+                  <div class="card-body text-center">
+                      
+                      {% with mail=proff.email rgt=proff.researchgate gsc=proff.google_scholar orc=proff.Orchid wb=proff.website %}
+                    
+                    {% if mail %}
+                    <a href="mailto:{{mail}}" class="card-link"> Mail </a>
+                    {% endif %}
+                    
+                    
+                    {% if rgt %}
+                    <a href="{{rgt}}" class="card-link" target="_blank"> researchgate </a>
+                    {% endif %}
+                    
+                    {% if gsc %}
+                    <a href="{{gsc}}" class="card-link" target="_blank"> Google Sholar </a>
+                        
+                    {% endif %}
+                        
+                    {% if orc %}
+                    <a href="{{orc}}" class="card-link" target="_blank"> Orcid </a>
+                        
+                    {% endif %}
+                    
+                    {% if wb %}
+                    <a href="{{wb}}" class="card-link" target="_blank"> Website </a>
+                        
+                    {% endif %}
+                             
+
+                      {% endwith %}
+                    
+                  </div>
+                </div>
+            </div>
+
+            {% endfor %}
+        </div>
+
+      </div>
+    
+    <div class="mt-5 mb-5">
+        <h1>Scholarships</h1>
+        <hr>
+        
+        
+        <div class="row">
+        {% for scholarship in program.university.scholarships.all %}
+            
+
+            <div class="col-md-6 my-4">
+                <div class="card ">
+                    <div class="card-header text-center">
+                      <strong> 
+                          {{scholarship.name}}
+                      </strong>
+                    </div>
+                    <div class="card-body">
+                      
+                      <p class="text-center m-0 p-0">
+                          <a href="{{scholarship.link}}" class="btn btn-outline-dark text-center" target="_blank">Official link</a>
+                          <a href="#" class="btn btn-dark text-center">+More info</a>
+                      </p>
+    
+                    </div>
+                    <div class="card-footer text-center ">
+                     <strong> Deadline: </strong> {{scholarship.deadline|date:"d F Y"}}
+                    </div>
+                  </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+
+
+
+{% endblock main %}
+    

@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    
+    {% block head %}
+        
+    {% endblock head %}
+        
+    <title>
+        
+        {% block title %}
+            
+        {% endblock title %}
+            
+       | Life science abroad
+    </title>
+</head>
+
+
+
+
+<body>
+   <div class="container">
+
+       {% block main %}
+           
+       {% endblock main %}
+            
+    
+    
+    
+    
+        {% block bottom %}
+            
+        {% endblock bottom %}
+
+   </div>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>

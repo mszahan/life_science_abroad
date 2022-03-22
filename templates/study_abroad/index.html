@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Home
+{% endblock title %}
+    
+
+
+{% block main %}
+{% include 'nav.html' %}
+    <h1 class="mt-5">Masters Programs</h1>
+    <hr>
+    <div class="row">
+
+{% for master in masters %}
+        <div class="col-md-6 my-4">
+            <div class="card ">
+                <div class="card-header text-center">
+                  <strong> 
+                      {{master.subject}}
+                  </strong>
+                </div>
+                <div class="card-body">
+                  <h3 class="card-title">{{master.university.name}}</h3>
+                  <p class="card-text">
+
+                      <strong>Ranking: </strong> {{master.university.ranking}}
+                      <br>
+                      <strong>Country:  </strong> {{master.university.country.name}} 
+                      <br>
+                      <strong>Location: </strong> {{master.university.location}}
+                  </p>
+                  <p class="text-center m-0 p-0">
+                      <a href="{{master.university.website}}" class="btn btn-outline-dark text-center" target="_blank">Versity link</a>
+                      <a href="{{master.get_absolute_url}}" class="btn btn-dark text-center">+More info</a>
+                      <a href="{{master.link}}" class="btn btn-outline-dark text-center" target="_blank">Program link</a>
+                  </p>
+
+                </div>
+                <div class="card-footer text-center ">
+                  <strong> Deadline: </strong> {{master.Deadline|date:"d F Y"}} | {{master.extended_deadline|date:"d F Y"}}
+                </div>
+              </div>
+        </div>
+{% endfor %}
+    </div>
+
+    
+    <h1 class="mt-5">PhD Programs</h1>
+    <hr>
+    <div class="row">
+
+        {% for phd in phds %}
+        <div class="col-md-6 my-4">
+            <div class="card ">
+                <div class="card-header text-center">
+                  <strong> 
+                      {{phd.subject}}
+                  </strong>
+                </div>
+                <div class="card-body">
+                  <h3 class="card-title">{{phd.university.name}}</h3>
+                  <p class="card-text">
+
+                      <strong>Ranking: </strong> {{phd.university.ranking}}
+                      <br>
+                      <strong>Country:  </strong> {{phd.university.country.name}} 
+                      <br>
+                      <strong>Location: </strong> {{phd.university.location}}
+                  </p>
+                  <p class="text-center m-0 p-0">
+                      <a href="{{phd.university.website}}" class="btn btn-outline-dark text-center" target="_blank">Versity link</a>
+                      <a href="{{phd.get_absolute_url}}" class="btn btn-dark text-center">+More info</a>
+                      <a href="{{phd.link}}" class="btn btn-outline-dark text-center" target="_blank">Program link</a>
+                  </p>
+
+                </div>
+                <div class="card-footer text-center ">
+                  <strong> Deadline: </strong> {{phd.Deadline|date:"d F Y"}} | {{phd.extedned_deadline|date:"d F Y"}}
+                </div>
+              </div>
+        </div>
+  {% empty %}
+  <div class="alert alert-dark m-5 text-center" role="alert">
+    <h3 class="text-center"> No PhD programs added yet.</h3>
+    
+   </div>
+{% endfor %}
+
+    </div>
+
+
+{% endblock main %}
+    
